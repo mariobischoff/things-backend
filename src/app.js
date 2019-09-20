@@ -7,23 +7,20 @@ import databaseConfig from './config/database'
 class App {
   constructor () {
     this.express = express()
-
-    // this.database()
-    this.middleware()
-    this.routes()
+    this._database()
+    this._middleware()
+    this._routes()
   }
 
-  database () {
-    mongoose.connect(databaseConfig.uri, {
-      useNewUrlParser: true
-    })
+  _database () {
+    mongoose.connect(databaseConfig.uri, databaseConfig.opt)
   }
 
-  middleware () {
+  _middleware () {
     this.express.use(express.json())
   }
 
-  routes () {
+  _routes () {
     this.express.use(routes)
   }
 }

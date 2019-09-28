@@ -33,17 +33,20 @@ class ThingController {
 
   async update (req, res) {
     try {
-      let log = new Log(req.body)
-      log.thing = res.locals.id
-      await log.save()
-      return res.status(202).json(log)
+      let thing = await Thing.findByIdAndUpdate(req.params.id, req.body)
+      return res.status(202).json(thing)
     } catch (error) {
       return res.status(500).send(error)
     }
   }
 
-  destroy (req, res) {
-
+  async destroy (req, res) {
+    try {
+      let thing = await Thing.findByIdAndDelete(req.params.id)
+      return res.status(200).json(thing)      
+    } catch (error) {
+      return res.status(500).send(error)      
+    }
   }
 }
 

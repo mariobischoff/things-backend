@@ -16,13 +16,7 @@ const UserSchema = Schema({
   createdAt: {
     type: Date,
     default: Date.now
-  },
-  things: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'thing'
-    }
-  ]
+  }
 })
 
 export default mongoose.model('User', UserSchema)

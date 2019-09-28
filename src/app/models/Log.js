@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const LogSchema = Schema({
-  thing: {
+  thing: { 
     type: Schema.Types.ObjectId,
     ref: 'Thing'
   },
@@ -10,7 +10,7 @@ const LogSchema = Schema({
     type: Date,
     default: Date.now
   },
-  values: [{ key: Schema.Types.Mixed }]
+  values: JSON
 })
 
 export default mongoose.model('Log', LogSchema)

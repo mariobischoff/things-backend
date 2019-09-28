@@ -30,13 +30,17 @@ class UserController {
       let result = await user.save()
       return res.status(201).json(result)
     } catch (error) {
-      console.log(error)
-      return res.status(500).send(error)      
+      return res.status(500).send(error)  
     }
   }
 
-  update (req, res) {
-
+  async update (req, res) {
+    try {
+      let user = await User.findByIdAndUpdate(req.params.id, req.body)
+      return res.status(200).json(user)
+    } catch (error) {
+      return res.status(500).send(error)
+    }
   }
 
   async destroy (req, res) {

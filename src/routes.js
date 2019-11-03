@@ -8,7 +8,7 @@ import Auth from './middleware/Auth'
 const routes = Router();
 
 // Autenticação
-routes.post('/auth/', Auth.generateToken)
+routes.post('/auth', Auth.generateToken)
 
 // Usuário
 routes.get('/user/:id', Auth.authenticate, UserController.index)

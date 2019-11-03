@@ -1,5 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import cors from 'cors'
+import morgan from 'morgan'
 
 import routes from './routes'
 import databaseConfig from './config/database'
@@ -18,6 +20,8 @@ class App {
 
   _middleware () {
     this.express.use(express.json())
+    this.express.use(morgan('tiny'))
+    this.express.use(cors())
   }
 
   _routes () {

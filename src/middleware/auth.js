@@ -29,11 +29,11 @@ class Auth {
         let token = jwt.sign(user.id, process.env.SECRET)
         return res.status(200).json({ token })
       } else {
-        return res.status(401).json({ msg: "Invalid Password" })
+        return res.status(401).json({ msg: 'Invalid Password' })
       }
     } catch (error) {
       console.log(error)
-      return res.status(500).send(error)
+      return res.status(400).json({ msg: 'Invalid Email' })
     }
   }
 }

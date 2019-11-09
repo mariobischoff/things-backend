@@ -1,14 +1,15 @@
 import express from 'express'
+import expressWs from 'express-ws'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import morgan from 'morgan'
 
-import routes from './routes'
 import databaseConfig from './config/database'
 
 class App {
   constructor () {
     this.express = express()
+    this.expressWs = expressWs(this.express)
     this._database()
     this._middleware()
     this._routes()
@@ -25,7 +26,7 @@ class App {
   }
 
   _routes () {
-    this.express.use(routes)
+    this.express.use(require('./routes').default)
   }
 }
 

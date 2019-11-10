@@ -30,7 +30,8 @@ class UserController {
       let result = await user.save()
       return res.status(201).json(result)
     } catch (error) {
-      return res.status(500).send(error)  
+      console.log(error)
+      return res.status(500).json({ err: error.errmsg })  
     }
   }
 

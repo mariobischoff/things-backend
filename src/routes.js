@@ -2,6 +2,7 @@ import { Router } from 'express'
 import UserController from './app/controllers/UserController'
 import ThingController from './app/controllers/ThingController'
 import LogController from './app/controllers/LogController'
+import ChannelController from './app/controllers/ChannelController'
 import Auth from './middleware/Auth'
 
 
@@ -23,9 +24,11 @@ router.get('/thing', Auth.authenticate ,ThingController.show)
 router.post('/thing', Auth.authenticate, ThingController.store)
 router.post('/thing/:id', Auth.authenticate, ThingController.update)
 
+// Channel
+router.ws('/board/:idThing', ChannelController.board)
+router.ws('/client/:idUser', ChannelController.client)
+
 // Log
-router.ws('/', LogController.store)
-router.post('/log/:id', Auth.authenticate, LogController.store)
 router.get('/log/:id/:start/:end', Auth.authenticate, LogController.show)
 
 export default router

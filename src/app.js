@@ -5,6 +5,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 
 import databaseConfig from './config/database'
+// import wsConfig from './config/ws'
 
 class App {
   constructor () {
@@ -26,6 +27,7 @@ class App {
   }
 
   _routes () {
+    // As routas tem que ser definidas depois que o expressWs for configurado.
     this.express.use(require('./routes').default)
   }
 }

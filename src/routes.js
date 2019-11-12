@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import DefaultController from './app/controllers/DeafultController'
 import UserController from './app/controllers/UserController'
 import ThingController from './app/controllers/ThingController'
 import LogController from './app/controllers/LogController'
@@ -7,6 +8,9 @@ import Auth from './middleware/Auth'
 
 
 const router = Router();
+
+//default
+router.get('/', DefaultController.DefaultRouter)
 
 // Autenticação
 router.post('/auth', Auth.generateToken)

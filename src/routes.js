@@ -9,7 +9,7 @@ import Auth from './middleware/Auth'
 
 const router = Router();
 
-//default
+// Default
 router.get('/', DefaultController.DefaultRouter)
 
 // Autenticação

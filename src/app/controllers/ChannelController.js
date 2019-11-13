@@ -7,7 +7,6 @@ class ChannelController {
       try {
         let log = new Log({ values })
         log.thing = req.params.idThing
-        console.log(log)
         await log.save()
       } catch (error) {
         console.error(error)
@@ -16,7 +15,9 @@ class ChannelController {
   }
   client(ws, req) {
     ws.on('message', (data) => {
-      console.log(ws)
+      req.app.locals.wss.clients.forEach(client => {
+        client.send('Ola')
+      })
     })
   }
 }

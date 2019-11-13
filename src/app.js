@@ -21,6 +21,10 @@ class App {
   }
 
   _middleware () {
+    this.express.use((req, res, next) => {
+      req.app.locals.wss = this.expressWs.getWss('/board')
+      next()
+    })
     this.express.use(express.json())
     this.express.use(morgan('tiny'))
     this.express.use(cors())

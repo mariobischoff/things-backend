@@ -1,17 +1,20 @@
 import http from 'http'
-import expressWs from 'express-ws'
+import io from 'socket.io'
 import app from './app'
-// import webSocket from 'ws'
 
-// const server = http.createServer(app)
-// const expressWs = expressWs(app)
+const server = http.Server(app)
+const ws = io(server)
 
-// const s = new webSocket.Server({ server })
+ws.on('connection', (socket) => {
+  console.log(`A user ${socket.id} connected!`)
+  socket.on('sendData', (data) => {
+    console.log(data)
+  })
+})
 
-// s.on('connection', (socket, req) => {
-//   console.log('Client connected')
-//   socket.on('message', (message) => { console.log("Received: " + message) })
+// app.use((req, res, next) => {
+//   res.locals['socketio'] = io
+//   next()
 // })
 
-
-app.listen(3000, () => console.log('server up at port 3000'))
+server.listen(3000, () => console.log('server up at port 3000'))

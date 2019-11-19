@@ -21,6 +21,18 @@ class Auth {
     }
   }
 
+  async authenticateSocket (socket, next) {
+    const token = socket.handshake.query['token']
+    if (!token) socket.disconnect()
+    try {
+      const decoded = await jwt.verify(token, process.env.SECRET)
+      socket['thingId'] = decoded._id
+      next()
+    } catch (error) {
+      return console.error(error)
+    }
+  }
+
   async generateToken (req, res) {
     const { email, password } = req.body
     try {

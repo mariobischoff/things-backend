@@ -4,7 +4,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import routes from './routes'
 
-import databaseConfig from './config/database'
+import databaseConfig from '../config/database'
 
 class App {
   constructor () {
@@ -19,10 +19,6 @@ class App {
   }
 
   _middleware () {
-    this.express.use((req, res, next) => {
-      req.app.locals.wss = this.expressWs.getWss('/board')
-      next()
-    })
     this.express.use(express.json())
     this.express.use(morgan('tiny'))
     this.express.use(cors())

@@ -1,10 +1,10 @@
 import { Router } from 'express'
-import DefaultController from './app/controllers/DeafultController'
-import UserController from './app/controllers/UserController'
-import ThingController from './app/controllers/ThingController'
-import LogController from './app/controllers/LogController'
-import ChannelController from './app/controllers/ChannelController'
-import Auth from './middleware/Auth'
+import DefaultController from './controllers/DeafultController'
+import UserController from './controllers/UserController'
+import ThingController from './controllers/ThingController'
+import LogController from './controllers/LogController'
+import ChannelController from './controllers/ChannelController'
+import Auth from '../middleware/Auth'
 
 
 const router = Router();
@@ -23,8 +23,8 @@ router.put('/user/:id', Auth.authenticate, UserController.update)
 router.delete('/user/:id', Auth.authenticate, UserController.destroy)
 
 // Coisa
-router.get('/thing/:id', Auth.authenticate, ThingController.index)
 router.get('/thing', Auth.authenticate ,ThingController.show)
+router.get('/thing/:id', Auth.authenticate, ThingController.index)
 router.post('/thing', Auth.authenticate, ThingController.store)
 router.post('/thing/:id', Auth.authenticate, ThingController.update)
 
@@ -33,6 +33,7 @@ router.get('/board/:idThing', ChannelController.board)
 router.post('/client/:idUser', ChannelController.client)
 
 // Log
-router.get('/log/:id/:start/:end', Auth.authenticate, LogController.show)
+router.get('log', Auth.authenticate, LogController.show)
+router.get('/log/:id/:start/:end', Auth.authenticate, LogController.index)
 
 export default router

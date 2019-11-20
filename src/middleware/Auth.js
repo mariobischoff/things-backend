@@ -23,6 +23,7 @@ class Auth {
   }
 
   async authenticateBoard (socket, next) {
+    console.log(socket)
     const token = socket.handshake.query['token']
     if (!token) socket.disconnect()
     try {

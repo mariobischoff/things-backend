@@ -5,9 +5,11 @@ import ThingController from './controllers/ThingController'
 import LogController from './controllers/LogController'
 import ChannelController from './controllers/ChannelController'
 import Auth from '../middleware/Auth'
+import socket from '../socket'
 
 
 const router = Router();
+
 
 // Default
 router.get('/', DefaultController.DefaultRouter)
@@ -29,8 +31,6 @@ router.post('/thing', Auth.authenticate, ThingController.store)
 router.post('/thing/:id', Auth.authenticate, ThingController.update)
 
 // Channel
-router.use(ChannelController.board)
-router.use(ChannelController.client)
 
 // Log
 router.get('log', Auth.authenticate, LogController.show)

@@ -29,8 +29,8 @@ router.post('/thing', Auth.authenticate, ThingController.store)
 router.post('/thing/:id', Auth.authenticate, ThingController.update)
 
 // Channel
-router.get('/board/:idThing', ChannelController.board)
-router.post('/client/:idUser', ChannelController.client)
+router.use(ChannelController.board)
+router.use(ChannelController.client)
 
 // Log
 router.get('log', Auth.authenticate, LogController.show)

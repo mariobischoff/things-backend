@@ -15,13 +15,14 @@ class Auth {
     try {
       const decoded = await jwt.verify(token, process.env.SECRET)
       res.locals.id = decoded
+      console.log(res.locals.id)
       next()
     } catch (error) {
       return res.status(401).send('Token invalid')
     }
   }
 
-  async authenticateSocket (socket, next) {
+  async authenticateBoard (socket, next) {
     const token = socket.handshake.query['token']
     if (!token) socket.disconnect()
     try {
@@ -38,8 +39,8 @@ class Auth {
     try {
       let user = await User.findOne({ email: email })
       if (bcrypt.compareSync(password, user.hash_password)) {
-        let token = jwt.sign(user.id, process.env.SECRET)
-        return res.status(200).json({ token })
+        let token = jwt.sign({ _id: user._id }, process.env.SECRET)
+        return res.status(200).json({ token, email: user.email })
       } else {
         return res.status(401).json({ msg: 'Invalid Password' })
       }

@@ -5,28 +5,21 @@ import Log from './app/models/Log'
 
 module.exports = (server) => {
   const io = socket(server)
-  io.use(Auth.authenticateSocket)
-
-  io.on('connection', (thing) => {
-    console.log(`Thing ${thing.id} connected!`)
-    let thingId = thing['thingId']
-    thing.on('sendData', (values) => {
-      let log = new Log({ values })
+  io.of('/').use(Auth.authenticateBoard)
+  // io.on('connection', (thing) => {
+  //   console.log(`Thing ${thing.id} connected!`)
+  //   let thingId = thing['thingId']
+  //   thing.on('sendData', (values) => {
+  //     let log = new Log({ values })
       
-      console.log(log)
-      log.thing = thingId
-      try {
-        log.save()
-      } catch (error) {
-        console.error(error)
-      }
-    })
-    setTimeout(()=> {
-      thing.emit('setConfig', {
-        automatic: 0,
-        pump: 1,
-        cooler: 1
-      })
-    }, 2000)
-  })
+  //     console.log(log)
+  //     log.thing = thingId
+  //     try {
+  //       log.save()
+  //     } catch (error) {
+  //       console.error(error)
+  //     }
+  //   })
+  // })
+  return io
 }

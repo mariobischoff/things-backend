@@ -22,10 +22,10 @@ class Auth {
     }
   }
 
-  async authenticateBoard (socket, next) {
+  async authenticateSocket (socket, next) {
     console.log(socket)
     const token = socket.handshake.query['token']
-    if (!token) socket.disconnect()
+    if (!token) next()
     try {
       const decoded = await jwt.verify(token, process.env.SECRET)
       socket['thingId'] = decoded._id

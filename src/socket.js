@@ -12,15 +12,15 @@ module.exports = (server) => {
     if (socket['thingId']) {
       console.log(`Thing ${socket.id} connected`)
       things.push({ socketId: socket.id, thingId: socket['thingId'] })
-      socket.emit('thingConnected', things)
+      io.emit('thingConnected', things)
 
       socket.on('disconnect', () => {
         console.log(`Thing ${socket.id} disconnect`)
-        index = things.findIndex((ele) => {
+        let index = things.findIndex((ele) => {
           return ele.socketId === socket.id
         })
         things.splice(index, 1)
-        socket.emit('thingDisconnect', things)
+        io.emit('thingDisconnect', things)
 
       })
 
@@ -29,7 +29,7 @@ module.exports = (server) => {
         let log = new Log({ values })
         log.thing = thingId
         try {
-          socket.emit('sendToFront', log)
+          io.emit('sendToFront', { values: log.values, date: log.createdAt })
           log.save()
         } catch (error) {
           console.error(error)

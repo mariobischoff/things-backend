@@ -6,6 +6,7 @@ import ChannelController from './app/controllers/ChannelController'
 
 module.exports = (server) => {
   const io = socket(server)
+  io.use(Auth.authenticateSocket)
   let things = []
   io.on('connection', (socket) => {
     if (socket['thingId']) {
@@ -23,11 +24,12 @@ module.exports = (server) => {
 
       })
 
-      let thingId = thing['thingId']
-      thing.on('sendData', (values) => {
+      let thingId = socket['thingId']
+      socket.on('sendData', (values) => {
         let log = new Log({ values })
         log.thing = thingId
         try {
+          socket.emit('sendToFront', log)
           log.save()
         } catch (error) {
           console.error(error)

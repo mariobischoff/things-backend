@@ -23,13 +23,12 @@ class Auth {
   }
 
   async authenticateSocket (socket, next) {
-    console.log(socket)
     const token = socket.handshake.query['token']
-    if (!token) next()
+    if (!token) return next()
     try {
       const decoded = await jwt.verify(token, process.env.SECRET)
       socket['thingId'] = decoded._id
-      next()
+      return next()
     } catch (error) {
       return console.error(error)
     }

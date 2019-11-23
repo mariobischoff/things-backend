@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rm -rf ./dist",
+    "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean & babel ./src --out-dir ./dist/src",
     "start": "npm run build && node ./dist/src/server.js",
     "dev": "nodemon src/server.js",

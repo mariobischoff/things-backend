@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "heroku-prebuild": "rm -rf node_modules",
     "clean": "rm -rf dist && mkdir dist",
     "build": "npm run clean & babel ./src --out-dir ./dist/src",
     "start": "npm run build && node ./dist/src/server.js",

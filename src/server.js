@@ -6,4 +6,4 @@ const io = require('./socket')(server)
 
 app.set('io', io)
 
-server.listen(3000, () => console.log('server up at port 3000'))
+server.listen(process.env.PORT, () => console.log(`server up at port ${process.env.PORT}`))
